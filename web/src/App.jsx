@@ -43,7 +43,7 @@ export default function App() {
     setActiveScraper(scraper.id);
     setError('');
     try {
-      const response = await fetch(`/api/scrapers/${scraper.id}/run`);
+      const response = await fetch(`/api/scrapers/${scraper.id}/run`, { method: 'POST' });
       const data = await response.json();
       if (!response.ok) throw new Error(data.details || data.error || 'Scraper request failed');
       setAds(data.ads || []);
