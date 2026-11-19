@@ -25,11 +25,7 @@ npm run dev
 
 Open http://127.0.0.1:5173.
 
-The development server starts the Express API on port 3001 and proxies `/api` requests to it. Configure the XML-RPC target with:
-
-- `SCRAPER_RPC_HOST` (default: `127.0.0.1`)
-- `SCRAPER_RPC_PORT` (default: `8000`)
-- `SCRAPER_RPC_PATH` (default: `/RPC2`)
+The development server starts the Express API on port 3001 and proxies `/api` requests to it. Configure the XML-RPC target with `SCRAPER_RPC_HOST`, `SCRAPER_RPC_PORT`, and `SCRAPER_RPC_PATH` (defaults: `127.0.0.1`, `8000`, and `/RPC2`).
 
 For a production build:
 
@@ -44,10 +40,10 @@ The production Express server serves the generated Vite app from `dist/`.
 
 - `GET /api/health` — checks the XML-RPC service.
 - `GET /api/scrapers` — lists configured scraper integrations.
-- `GET /api/scrapers/:id/run` — runs a scraper and returns normalized listing JSON.
+- `POST /api/scrapers/:id/run` — runs a scraper and returns normalized listing JSON.
 
 Scraper execution can take time because some legacy implementations fetch listing details one by one. Keep the API private to a trusted local network; it intentionally does not expose an unauthenticated public scraping endpoint.
 
-## Compatibility note
+## Compatibility
 
-The legacy `Utilities.py` serializer is Python 2-specific and currently emits a Python dictionary representation rather than valid JSON. The dashboard expects valid JSON from XML-RPC. Update `adsToJson` to use Python's `json.dumps` before connecting the UI to the legacy service.
+The XML-RPC service returns scraper results as JSON text. `Utilities.py` serializes the collected ads with `json.dumps` so the Node.js bridge can safely parse the response.
