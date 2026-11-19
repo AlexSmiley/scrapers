@@ -11,3 +11,16 @@ See [web/README.md](web/README.md) for requirements, setup instructions, configu
 ## Legacy scraper service
 
 The existing XML-RPC service is defined in `Service.py` and listens on `localhost:8000` at `/RPC2`. It depends on the original Python 2-era runtime and scraper libraries. The web dashboard does not modernize or replace that runtime.
+
+
+Running locally
+First, start the existing Python XML-RPC service. Then:
+cd web
+npm install
+npm run dev
+
+Open:
+
+http://127.0.0.1:5173
+
+frontend example: https://scrapers-phi.vercel.app/
