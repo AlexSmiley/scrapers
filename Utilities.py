@@ -3,10 +3,15 @@
 from webscraping import xpath
 from Downloader import Downloader
 import sys
+import json
 import urlparse, urllib
 
 def adsToJson(dic):
-    return ','.join(str(x.dataDict).replace('\'', '"').replace('u"', '"') for x in dic).replace('},{', ',')
+    # Return standards-compliant JSON for the XML-RPC and web clients.
+    result = {}
+    for ad in dic:
+        result.update(ad.dataDict)
+    return json.dumps(result, ensure_ascii=False)
 
 def getDescription(link, path):
     try:
