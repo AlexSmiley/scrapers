@@ -61,7 +61,7 @@ app.get('/api/scrapers', (_req, res) => {
   res.json({ scrapers });
 });
 
-app.get('/api/scrapers/:id/run', async (req, res) => {
+app.post('/api/scrapers/:id/run', async (req, res) => {
   const scraper = scrapers.find((item) => item.id === req.params.id);
   if (!scraper) return res.status(404).json({ error: 'Unknown scraper.' });
 
